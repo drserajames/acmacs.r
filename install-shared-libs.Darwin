@@ -44,6 +44,11 @@ def main(target_package_dir, *libraries):
                     shutil.copy(name, target_lib)
                     rpath_source_dirs.add(os.path.dirname(name))
                     to_process.add(target_lib)
+    # Ad-hoc codesign all copied libraries so macOS hardened runtime will load them
+    for lib in processed:
+        if lib.startswith(target_dir):
+            subprocess.check_call(["/usr/bin/codesign", "--force", "--sign", "-", lib])
+
     # if not libomp:
     #     print("WARNING: no libomp found in", libraries, file=sys.stderr)
 

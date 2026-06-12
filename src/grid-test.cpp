@@ -33,7 +33,7 @@ Projection GridTest::make_new_projection_and_relax()
     if (results_) {
         if (results_->count_trapped_hemisphering() == 0)
             throw std::runtime_error("test found neither trapped nor hemisphering points, nothing to do");
-        auto projection = grid_test_->make_new_projection_and_relax(*results_, false);
+        auto projection = grid_test_->make_new_projection_and_relax(*results_, acmacs::verbose::no);
         results_.reset();
         grid_test_->reset(projection);
         return projection;
